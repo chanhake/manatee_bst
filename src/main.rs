@@ -49,6 +49,7 @@ fn main() {
         }
         //INSERT
         for i in 0..columns{
+            //How do we want to put data in the tree?
              iter_bst.insert(i, (age[i].trim().parse::<i64>(), size[i].trim().parse::<i64>()));
         }
 
