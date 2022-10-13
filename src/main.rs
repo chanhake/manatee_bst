@@ -1,16 +1,20 @@
 use std::collections::BTreeMap;
+use std::convert::TryInto;
 use std::process::exit;
+//use std::iter::FromIterator;
 
 fn main() {
-    let mut iter_bst = BTreeMap::new();
+    let mut male_iter_bst = BTreeMap::new();
+    let mut female_iter_bst = BTreeMap::new();
     let mut input_string = String::new();
-
+    let mut female_vec = Vec::<(i64, i64, i64)>::new();
+    let mut male_vec = Vec::<(i64, i64, i64)>::new();
     //READ IN SIZE
     std::io::stdin()
     .read_line(&mut input_string)
     .expect("Failed to read string");
 
-    //TRIM
+    //TRIM and convert to usize
     let columns: usize = input_string
     .trim()
     .parse()
@@ -18,15 +22,22 @@ fn main() {
 
     for _line in 0..2{
 
-        //AGE
+        //AGE of manatee
         let mut age_str= String::new();
+
+        //Read string from stdin
         std::io::stdin()
         .read_line(&mut age_str)
         .expect("Failed to read string");
-        age_str.pop();
-        let split1 = age_str.split(" ");
-        let age:Vec<&str> = split1.collect();
 
+        //Get rid of newline in string
+        age_str.pop();
+
+        //Split string by space and map
+        let age:Vec<i64> = age_str
+        .split(" ")
+        .map(|x| x.parse::<i64>().unwrap())
+        .collect();
 
         //Column Error Check
         if age.len()!= columns{
@@ -34,35 +45,70 @@ fn main() {
             exit(0);
         }
 
-        //SIZE
-        let mut str2= String::new();
+        //SIZE of manatee
+        let mut size_string= String::new();
+
+        //Read string from stdin
         std::io::stdin()
-        .read_line(&mut str2)
+        .read_line(&mut size_string)
         .expect("Failed to read string");
-        str2.pop();
-        let split2 = str2.split(" ");
-        let size:Vec<&str> = split2.collect();
-        
+
+        //Get rid of newline in string
+        size_string.pop();
+
+        //Split string by space
+        let size:Vec<i64> = size_string
+        .split(" ")
+        .map(|x| x.parse::<i64>().unwrap())
+        .collect();
+        //Convert string split to vector for iteration
+        //let size:Vec<i64> = split2.collect();
+        //println!("{:?}", split2);
         //Column Error Check
         if size.len()!= columns{
             println!("Incorrect Input!");
             exit(0);
         }
-        //INSERT
-        for _i in 0..columns{
-            //How do we want to put data in the tree?
-             iter_bst.insert(age[_i].trim().parse::<i32>().unwrap(),  size[_i].trim().parse::<i64>());
+        
+        // //Insert data to BST
+        if _line == 0{
+            for _i in 0..columns{
+                female_vec.push(((_i+1).try_into().unwrap(), age[_i], size[_i]));
+            }
         }
+        else{
+            for _i in 0..columns{
+                male_vec.push(((_i+1).try_into().unwrap(), age[_i], size[_i]));
+            }
+        }
+        
+        
 
 
         
     }
-    println!("\nPrinting elements\n");
-        let mut count = 1;
-        for (key,value) in iter_bst.iter_mut(){
-            
-                println!("key = {:?} value = {:?} ", key, value);
-            
-        }
+    
+    // //Convert male bst to vector
+    //let mut male_vec = Vec::from_iter(male_iter_bst);
+    male_vec.sort_by(|(_x, a, _d), (_y, b,_c)| a.cmp(&b));
+    
+    // //Convert female bst to vector
+    // let mut female_vec = Vec::from_iter(female_iter_bst);
+    female_vec.sort_by(|(_x, a, _d), (_y, b,_c)| a.cmp(&b));
+    
+
+    for _i in 0..columns{
+        female_iter_bst.insert(_i, (female_vec[_i].0, female_vec[_i].1, female_vec[_i].2));
+    }
+    for _i in 0..columns{
+        male_iter_bst.insert(_i, (male_vec[_i].0, male_vec[_i].1, female_vec[_i].2));
+    }
+
+    println!("\nPrinting elements");
+    println!("{:?}", female_vec);
+    println!("{:?}", male_vec);
+    
+    
+    
     
 }
