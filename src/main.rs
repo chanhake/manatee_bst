@@ -25,7 +25,8 @@ fn main() {
         .expect("Failed to read string");
         age_str.pop();
         let split1 = age_str.split(" ");
-        let age:Vec<&str> = split1.collect(); 
+        let age:Vec<&str> = split1.collect();
+
 
         //Column Error Check
         if age.len()!= columns{
@@ -48,11 +49,20 @@ fn main() {
             exit(0);
         }
         //INSERT
-        for i in 0..columns{
+        for _i in 0..columns{
             //How do we want to put data in the tree?
-             iter_bst.insert(i, (age[i].trim().parse::<i64>(), size[i].trim().parse::<i64>()));
+             iter_bst.insert(age[_i].trim().parse::<i32>().unwrap(),  size[_i].trim().parse::<i64>());
         }
 
+
+        
     }
+    println!("\nPrinting elements\n");
+        let mut count = 1;
+        for (key,value) in iter_bst.iter_mut(){
+            
+                println!("key = {:?} value = {:?} ", key, value);
+            
+        }
     
 }
