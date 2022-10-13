@@ -61,9 +61,7 @@ fn main() {
         .split(" ")
         .map(|x| x.parse::<i64>().unwrap())
         .collect();
-        //Convert string split to vector for iteration
-        //let size:Vec<i64> = split2.collect();
-        //println!("{:?}", split2);
+
         //Column Error Check
         if size.len()!= columns{
             println!("Incorrect Input!");
@@ -81,22 +79,16 @@ fn main() {
                 male_vec.push(((_i+1).try_into().unwrap(), age[_i], size[_i]));
             }
         }
-        
-        
-
-
-        
     }
     
     // //Convert male bst to vector
-    //let mut male_vec = Vec::from_iter(male_iter_bst);
     male_vec.sort_by(|(_x, a, _d), (_y, b,_c)| a.cmp(&b));
     
     // //Convert female bst to vector
-    // let mut female_vec = Vec::from_iter(female_iter_bst);
     female_vec.sort_by(|(_x, a, _d), (_y, b,_c)| a.cmp(&b));
     
 
+    //Insert to BTreeMap you dont have to use this if you want to implement your own
     for _i in 0..columns{
         female_iter_bst.insert(_i, (female_vec[_i].0, female_vec[_i].1, female_vec[_i].2));
     }
@@ -107,8 +99,5 @@ fn main() {
     println!("\nPrinting elements");
     println!("{:?}", female_vec);
     println!("{:?}", male_vec);
-    
-    
-    
     
 }
