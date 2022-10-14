@@ -82,10 +82,24 @@ fn main() {
     }
     
     // //Convert male bst to vector
-    male_vec.sort_by(|(_x, a, _d), (_y, b,_c)| a.cmp(&b));
+    female_vec.sort_by(|(_x, a, d), (_y, b,c)| {
+        if a == b{
+            d.cmp(&c)
+        }
+        else{
+            a.cmp(&b)
+        }
+    });
     
     // //Convert female bst to vector
-    female_vec.sort_by(|(_x, a, _d), (_y, b,_c)| a.cmp(&b));
+    male_vec.sort_unstable_by(|(_x, a, d), (_y, b,c)| {
+        if a == b{
+            d.cmp(&c)
+        }
+        else{
+            a.cmp(&b)
+        }
+    });
     
 
     //Insert to BTreeMap you dont have to use this if you want to implement your own
