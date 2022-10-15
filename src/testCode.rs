@@ -92,44 +92,44 @@ fn main(){
     /////////////////////////////////////
 
     println!("Printing female manatees");
-    for tup in female_vec{
-        println!("{:?}", tup);
+    for tup in &female_vec{
+        println!("{:?}", *tup);
     }
 
     println!("Printing male manatees");
-    for tup in male_vec{
-        println!("{:?}", tup);
+    for tup in &male_vec{
+        println!("{:?}", *tup);
     }
 
-    female_tree.insert((1, 4, 1));
-    male_tree.insert((2, 1, 4));
+    //female_tree.insert((1, 4, 1));
+    //male_tree.insert((2, 1, 4));
 
     /////////////////////////////////////
     // FUN BST TESTING
     /////////////////////////////////////
     
-    /*
+    
     // adding all tuples to our BTreeSets
-    for tup in female_vec{
-        female_tree.insert(tup);
+    for tup in &female_vec{
+        female_tree.insert(*tup);
     }
 
-    for tup in male_vec{
-        male_tree.insert(tup);
+    for tup in &male_vec{
+        male_tree.insert(*tup);
     }
-    */
+    
 
 
     // testing with sorted input1 in this format (age, size, ID)
-    female_tree.insert((1, 4, 1));
-    female_tree.insert((2, 3, 2));
-    female_tree.insert((2, 3, 3));
-    female_tree.insert((3, 2, 4));
+    // female_tree.insert((1, 4, 1));
+    // female_tree.insert((2, 3, 2));
+    // female_tree.insert((2, 3, 3));
+    // female_tree.insert((3, 2, 4));
 
-    male_tree.insert((1, 2, 1));
-    male_tree.insert((1, 3, 2));
-    male_tree.insert((2, 2, 3));
-    male_tree.insert((2, 1, 4));
+    // male_tree.insert((1, 2, 1));
+    // male_tree.insert((1, 3, 2));
+    // male_tree.insert((2, 2, 3));
+    // male_tree.insert((2, 1, 4));
 
     println!("female_tree");
     for female_manatee in &female_tree {
