@@ -24,7 +24,7 @@ fn input_vector(vec: &mut Vec<(i64, i64, i64)>){
     for x in ages.split_whitespace().zip(sizes.split_whitespace()){
         current_age  = x.0.parse::<i64>().unwrap();
         current_size = x.1.parse::<i64>().unwrap();
-        vec.push((id_num, current_age, current_size));
+        vec.push((current_age, current_size, id_num));
         id_num = id_num + 1;
     }
 }
@@ -61,6 +61,31 @@ fn main(){
     input_vector(&mut female_vec);
     input_vector(&mut male_vec);
 
+
+    /////////////////////////////////////
+    // SORT FUNCTIONS FOR VECTORS
+    /////////////////////////////////////
+
+    // Female (a:age, d:size, _x:index)
+    // if age is == then sort by the size else just sort by age
+    female_vec.sort_by(|(a, d, _x), (b, c,_y)| {
+        if a == b{
+            d.cmp(&c)
+        }
+        else{
+            a.cmp(&b)
+        }
+    });
+    
+    // Male (a:age, d:size, _x:index)
+    male_vec.sort_by(|(a, d, _x), (b, c,_y)| {
+        if a == b{
+            d.cmp(&c)
+        }
+        else{
+            a.cmp(&b)
+        }
+    });
 
     /////////////////////////////////////
     // DISPLAYING DATA IN VECTORS
