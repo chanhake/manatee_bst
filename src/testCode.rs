@@ -40,6 +40,9 @@ fn main(){
     let mut female_vec = Vec::<(i64, i64, i64)>::new();
     let mut male_vec = Vec::<(i64, i64, i64)>::new();
 
+    let mut female_output = Vec::<(i64, i64, i64)>::new();
+    let mut male_output = Vec::<(i64, i64, i64)>::new();
+
     // declarings tree's that will be filled from coresponding vectors
     let mut female_tree = BTreeSet::new();
     let mut male_tree = BTreeSet::new();
@@ -119,23 +122,31 @@ fn main(){
     }
     
 
-
-    // testing with sorted input1 in this format (age, size, ID)
-    // female_tree.insert((1, 4, 1));
-    // female_tree.insert((2, 3, 2));
-    // female_tree.insert((2, 3, 3));
-    // female_tree.insert((3, 2, 4));
-
-    // male_tree.insert((1, 2, 1));
-    // male_tree.insert((1, 3, 2));
-    // male_tree.insert((2, 2, 3));
-    // male_tree.insert((2, 1, 4));
-
     println!("female_tree");
+
     for female_manatee in &female_tree {
-        let closest_mate = male_tree.range(..female_manatee).next_back().unwrap();
+        let temp_tree = male_tree.clone();
+        let closest_mate = temp_tree.range(..female_manatee).next_back().unwrap();
         println!("{:?} matched with {:?}", female_manatee, closest_mate);
-        // need to delete closest_mate and female_manatee here
+
+        female_output.push(*female_manatee);
+        male_output.push(*closest_mate);
+
+        male_tree.remove(closest_mate);
+        //need to delete closest_mate and female_manatee here
+
+        
     }
+
+    for manatee in female_output{
+        print!("{} ",manatee.2 );
+    }
+    print!("\n");
+
+    for manatee in male_output{
+        print!("{} ",manatee.2 );
+    }
+    print!("\n");
+    
 
 }
